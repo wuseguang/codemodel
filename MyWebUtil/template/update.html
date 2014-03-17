@@ -1,0 +1,22 @@
+<script>
+function %{pojoLower}UpdateCallback(json){
+	DWZ.ajaxDone(json);
+	alert("增加成功");
+	$('#entNav_%{pojoLower}').click()
+	$.pdialog.closeCurrent();
+	//navTab.closeCurrentTab();
+	//$('a[rel=navtab_searchdepart]','#left_container').click();
+}
+</script>
+<form method='post' action='%{url}' onsubmit="return validateCallback(this, %{pojoLower}UpdateCallback)" >
+<input type="hidden" name="%{pojoLower}.id" value="#{id}"/>
+<div class="pageFormContent dataWidget dataWidgetInfo" dataSource="%{dataSource}" layoutH="50">
+		%{columnList}
+</div>
+<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+</div>
+</form>

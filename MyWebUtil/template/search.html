@@ -1,0 +1,43 @@
+<script type="text/javascript">
+TableConfig['ent_search_table']=[{label:'企业名称',html:'<a target="navTab" rel="ent_info" href="widgets/enterprise/enterprise_info.html?id=${id}&name=${enterpriseNameCh}">${enterpriseNameCh}</a>'},
+                                      {label:'注册机构代码',html:'${enterpriseDepartCode}'},
+                                      {label:'注册代码',html:'${enterpriseRegisterCode}'},
+                                      {label:'法定代表人',
+                                    		  html:'${enterpriseLegalPersonId}'}]
+function entSearchSubmit(form){
+	$(form).pagerForm({parentBox:$(form).parent()});
+	var data=$(_getPagerForm($(form).parent(),{})).serializeArray()
+	$('#ent_search_table').attr('widgetData',JSON.stringify(data)).dataWidgetUpdate();
+	$('#ent_search_pagination').dataWidgetUpdate();
+	return false;
+}
+
+</script>
+<div class="pageHeader">
+<form id="pagerForm" method="post" action="#rel#">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="10" />
+	<input type="hidden" name="orderField" value="" />
+	<input type="hidden" name="orderDirection" value="" />
+</form>
+	<form rel="pagerForm" onsubmit="return entSearchSubmit(this);" method="post">
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="entName" value=""/>
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class='dataWidget dataWidget-table' id='ent_search_table' dataSource='api/ent/search?search=true'>
+</div>
+<div class='panelBar dataWidget dataWidget-info' dataSource='api/ent/search?count=true'>
+<div class="pagination" rel="ent_search_table" targetType="navTab" totalCount="${totalCount}" numPerPage="10" pageNumShown="10" currentPage="1"></div>
+</div>
